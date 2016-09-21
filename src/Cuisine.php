@@ -24,7 +24,14 @@
 
         static function find($cuisine_name)
         {
-            $cuisine_id = $GLOBALS['DB']->query("SELECT id FROM cuisines WHERE name = {$cuisine_name};");
+            $cuisines = Cuisine::getAll();
+            $cuisine_id = null;
+            foreach ($cuisines as $cuisine) {
+                if ($cuisine->getName() == $cuisine_name) {
+                    $cuisine_id = $cuisine->getId();
+                }
+            }
+            var_dump($cuisine_id);
 
             $returned_restaurants = $GLOBALS['DB']->query("SELECT * FROM restaurants WHERE cuisine_id = {$cuisine_id};");
             $restaurants = array();
@@ -32,7 +39,9 @@
                 $name = $restaurant['name'];
                 $id = $restaurant['id'];
                 $cuisine_id = $restaurant['cuisine_id'];
-                $new_restaurant = new Restaurant($name, $cuisine_id, $id);
+                $cost = $restaurant['cost'];
+                $rating = $restaurant['rating'];
+                $new_restaurant = new Restaurant($name, $cuisine_id, $cost, $rating, $id);
                 array_push($restaurants, $new_restaurant);
             }
             return $restaurants;
@@ -65,6 +74,7 @@
         function setName($new_name)
         {
             $this->name = (string) $new_name;
+            $GLOBALS['DB']->exec("UPDATE cuisines SET name = {$this->name} WHERE id = {$this->id};");
         }
 
         function getName()

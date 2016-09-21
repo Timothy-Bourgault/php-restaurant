@@ -11,12 +11,19 @@
 
     $app = new Silex\Application();
 
+    $app['debug']=true;
+
     $app->register(new Silex\Provider\TwigServiceProvider(), array(
         'twig.path' => __DIR__.'/../views'
     ));
 
     $app->get("/", function() use ($app) {
-        return $app['twig']->render('home.html.twig', array('cuisines' => Cuisine::getAll()));
+        return $app['twig']->render('home.html.twig', array('cuisines' => Cuisine::getAll(), 'restaurants' => Restaurant::getAll()));
+    });
+
+    $app->get("/filter_by_cuisine/{cuisine_name}", function($cuisine_name) use ($app) {
+        $filtered_restaurants = Cuisine::find($cuisine_name);
+        return $app['twig']->render('home.html.twig', array('cuisines' => Cuisine::getAll(), 'restaurants' => $filtered_restaurants));
     });
 
     return $app;

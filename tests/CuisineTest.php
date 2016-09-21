@@ -68,10 +68,10 @@
             $test_Cuisine1_id = $test_Cuisine1->getId();
             $test_Cuisine2_id = $test_Cuisine2->getId();
             $name = "Macaroon Grill";
-            $test_Restaurant1 = new Restaurant($name, $test_Cuisine1_id);
+            $test_Restaurant1 = new Restaurant($name, $test_Cuisine1_id, 3, 2);
             $test_Restaurant1->save();
             $name = "DeAngelos";
-            $test_Restaurant2 = new Restaurant($name, $test_Cuisine2_id);
+            $test_Restaurant2 = new Restaurant($name, $test_Cuisine2_id, 2, 1);
             $test_Restaurant2->save();
             //Act
             $test_Cuisine1->deleteCuisine();
@@ -80,14 +80,49 @@
             //Assert
             $this->assertEquals([$test_Cuisine2], $result_cuisines);
             $this->assertEquals([$test_Restaurant2], $result_restaurants);
+        }
+
+        function test_find()
+        {
+            // Arrange
+            $cuisine_name1 = "American";
+            $test_Cuisine1 = new Cuisine($cuisine_name1);
+            $test_Cuisine1->save();
+            $cuisine_name2 = "Mac and Cheese";
+            $test_Cuisine2 = new Cuisine($cuisine_name2);
+            $test_Cuisine2->save();
+            $test_Cuisine1_id = $test_Cuisine1->getId();
+            $test_Cuisine2_id = $test_Cuisine2->getId();
+            $name = "Macaroon Grill";
+            $test_Restaurant1 = new Restaurant($name, $test_Cuisine1_id, 3, 2);
+            $test_Restaurant1->save();
+            $name = "DeAngelos";
+            $test_Restaurant2 = new Restaurant($name, $test_Cuisine2_id, 2, 1);
+            $test_Restaurant2->save();
+            // Act
+            $result = Cuisine::find($cuisine_name1);
+            // Assert
+            $this->assertEquals([$test_Restaurant1], $result);
 
         }
 
-        // function test_deleteAll()
-        // {
-        //     $name = "Mac & Cheese";
-        //     $test_Cuisine = new Cuisine($name);
-        // }
+        function test_setName()
+        {
+            //Arrange
+            $cuisine_name1 = "American";
+            $test_Cuisine1 = new Cuisine($cuisine_name1);
+            //Act
+            $new_name = "Italian";
+            $test_Cuisine1->setName($new_name);
+            //Assert
+            $this->assertEquals($new_name, $test_Cuisine1->getName());
+        }
+
+        function test_deleteAll()
+        {
+            $name = "Mac & Cheese";
+            $test_Cuisine = new Cuisine($name);
+        }
 
     }
  ?>
