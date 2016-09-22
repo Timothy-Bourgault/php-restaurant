@@ -30,19 +30,23 @@ h2 {
     margin-top: .5em;
 }
 
-.left-space {
-    margin-left: 5px;
-    font-size: 15pt;
-}
-
 #cuisineTypeTitle {
     font-size: 23px;
-    font-family: 'Baloo Bhaina', cursive;
+    font-family: 'Cinzel', serif;
 }
 
 .cuisineList{
     color: #d17aa4;
     font-size: 30px;
+    margin-left: 15px;
+}
+
+.highlighted {
+    background-color: #99ff33;
+}
+
+#editPage {
+    text-align: center;
 }
 
 .restaurantList{
@@ -62,7 +66,7 @@ h2 {
 
 #newRestaurantTitle{
     font-size: 25px;
-    font-family: 'Baloo Bhaina', cursive;
+    font-family: 'Cinzel', serif;
 }
 
 .restaurantCuisineTitle{
