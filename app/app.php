@@ -58,10 +58,13 @@
         return $app->redirect('/');
     });
 
+
     $app->patch("/edit_cuisine/{cuisine_id}", function($cuisine_id) use ($app) {
         $cuisine = Cuisine::getCuisineById($cuisine_id);
-        $cuisine->setName($_POST['cuisine_name']);
-        return $app['twig']->render('edit_restaurant.html.twig', array('cuisine' => $cuisine));
+        $new_name = $_POST['cuisine_name'];
+        $cuisine->setName($new_name);
+        return $app->redirect('/');
+        // return var_dump($cuisine);
     });
 
     $app->delete("/edit_cuisine/{cuisine_id}", function($cuisine_id) use ($app) {

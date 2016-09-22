@@ -85,7 +85,8 @@
         function setName($new_name)
         {
             $this->name = (string) $new_name;
-            $GLOBALS['DB']->exec("UPDATE cuisines SET name = {$this->name} WHERE id = {$this->id};");
+            $GLOBALS['DB']->exec("UPDATE cuisines SET name = '{$this->name}' WHERE id = {$this->id};");
+
         }
 
         function getName()

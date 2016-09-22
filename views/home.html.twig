@@ -39,9 +39,10 @@
                                         <h4 class="modal-title" id="myModalLabel">Modal title</h4>
                                     </div>
                                     <div class="modal-body">
-                                        <form class='form-inline' method=>
+                                        <form action="/edit_cuisine/{{ cuisine.getId }}" class='form-inline' method='post'>
                                             <div class='form-group form-horizontal'>
-                                                <input class='form form-control' type='text' placeholder='update cuisine name'>
+                                                <input name="cuisine_name" class='form form-control' type='text' placeholder='update cuisine name'>
+                                                <input name="_method" type="hidden" value="patch">
                                                 <button class='btn btn-warning btn-sm' type='submit'>Submit Changes</button>
                                             </div>
                                         </form>
@@ -95,6 +96,7 @@
                     </ul>
                 </div>
             </div>
+            <hr>
             <div class="form-group-lg" id="addCuisine">
                 <h2>Add A Cuisine Type!</h2>
                 <br>
@@ -155,6 +157,7 @@
                             <br>
                             <button class="btn-info btn-lg" type='submit'>Add restaurant</button>
                         </div>
+                        <hr>
                     </div>
                 </form>
             </div>

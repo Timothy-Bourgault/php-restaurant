@@ -61,7 +61,7 @@
             return $get_restaurant_by_id;
         }
 
-        
+
 
 //Getter and Setters
         function getId()
@@ -72,7 +72,7 @@
         function setName($new_name)
         {
             $this->name = (string) $new_name;
-            $GLOBALS['DB']->exec("UPDATE restaurants SET name = {$this->name} WHERE id = {$this->id};");
+            $GLOBALS['DB']->exec("UPDATE restaurants SET name = '{$this->name}' WHERE id = {$this->id};");
         }
 
         function getName()
