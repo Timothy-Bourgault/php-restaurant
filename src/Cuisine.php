@@ -31,7 +31,6 @@
                     $cuisine_id = $cuisine->getId();
                 }
             }
-            var_dump($cuisine_id);
 
             $returned_restaurants = $GLOBALS['DB']->query("SELECT * FROM restaurants WHERE cuisine_id = {$cuisine_id};");
             $restaurants = array();
@@ -63,6 +62,18 @@
         static function deleteAll()
         {
             $GLOBALS['DB']->exec("DELETE FROM cuisines;");
+        }
+        static function getCuisineById($id)
+        {
+            $get_cuisine_by_id = null;
+            $cuisines = Cuisine::getAll();
+            foreach($cuisines as $cuisine) {
+                $cuisine_id = $cuisine->getId();
+                if ($cuisine_id == $id) {
+                    $get_cuisine_by_id = $cuisine;
+                }
+            }
+            return $get_cuisine_by_id;
         }
 
 //Getter and Setters

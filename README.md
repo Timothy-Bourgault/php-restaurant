@@ -18,7 +18,7 @@ This is a poor man's yelp.
 
 ## Specifications ##
 
-* Add and save a Cuisine type.
+* Add, save, and get a Cuisine type.
     * input1: "Mac and Cheese"
     * output: "Mac and Cheese"
 
@@ -30,7 +30,7 @@ This is a poor man's yelp.
     * input1: delete "Mac & Cheese"
     * output: ""
 
-* Add and save a Restaurant.
+* Add, save, and get a Restaurant.
     * input1: "Macaroon Grill"
     * output: "Macaroon Grill"
 

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <link href="/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+        <link href="/css/styles.css" rel="stylesheet" type="text/css">
+        <script src="/js/jquery-3.1.0.min.js" type="text/javascript"></script>
+        <script src="/js/bootstrap.min.js" type="text/javascript"></script>
+        <script src="/js/scripts.js" type="text/javascript"></script>
+        <title>Restaurant Page</title>
+    </head>
+    <body>
+        <div class="container">
+            <h2>{{ restaurant.getName }}</h2>
+            <p>{{ restaurant.getCost }} {{ restaurant.getRating }}</p>
+            <p> Here is where the description of this place should be... They have at least edible food stuffs here even if it's not good. </p>
+            <p> This is where an option to submit a review should be.... </p>
+            <form action="/edit_restaurant/{{ restaurant.getId }}" method="post">
+                <input name="_method" type="hidden" value="patch">
+                <label for="restaurant_name">Rename this restaurant:</label>
+                <input id="restaurant_name" name="restaurant_name" type="text">
+                <button type="submit" class="btn btn-warning">Edit Restaurant Name</button>
+            </form>
+            <form action="/edit_restaurant/{{ restaurant.getId }}" method="post">
+                <input name="_method" type="hidden" value="delete">
+                <button type ="submit" class='btn btn-danger btn-sm pull-left'>Delete This Restaurant</button>
+            </form>
+        </div>
+    </body>
+</html>

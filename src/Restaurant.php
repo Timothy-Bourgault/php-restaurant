@@ -48,6 +48,21 @@
             $GLOBALS['DB']->exec("DELETE FROM restaurants;");
         }
 
+        static function getRestaurantById($id)
+        {
+            $get_restaurant_by_id = null;
+            $restaurants = Restaurant::getAll();
+            foreach($restaurants as $restaurant) {
+                $restaurant_id = $restaurant->getId();
+                if ($restaurant_id == $id) {
+                    $get_restaurant_by_id = $restaurant;
+                }
+            }
+            return $get_restaurant_by_id;
+        }
+
+        
+
 //Getter and Setters
         function getId()
         {
@@ -70,9 +85,21 @@
             return $this->cuisine_id;
         }
 
+        function setCost($new_cost)
+        {
+            $this->cost = (int) $new_cost;
+            $GLOBALS['DB']->exec("UPDATE restaurants SET cost = {$this->cost} WHERE id = {$this->id};");
+        }
+
         function getCost()
         {
             return $this->cost;
+        }
+
+        function setRating($new_rating)
+        {
+            $this->rating = (int) $new_rating;
+            $GLOBALS['DB']->exec("UPDATE restaurants SET rating = {$this->rating} WHERE id = {$this->id};");
         }
 
         function getRating()

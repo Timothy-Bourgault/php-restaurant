@@ -14,27 +14,47 @@
             <h1>Restaurant Cuisine Matcher</h1>
 
             <h2>Add A Cuisine Type!</h2>
-            <form action='/categories' method='post'>
-                <label for='name'>Category name</label>
-                <input id='name' name='name' type='text'>
+            <form action='/add_cuisine' method='post'>
+                <label for='cuisine_name'>Cuisine name</label>
+                <input id='cuisine_name' name='cuisine_name' type='text'>
 
-                <button type='submit'>Add category</button>
+                <button type='submit'>Add cuisine</button>
             </form>
             <hr />
 
             <h2>Add A Restaurant To Our List!</h2>
-            <form action='/categories' method='post'>
-                <label for='name'>Category name</label>
-                <input id='name' name='name' type='text'>
-                <p>
-                    What Cuisine Type is Featured Here?
-                    <select name="restaurantCuisineType">
-                        {% for cuisine in cuisines %}
-                            <option value={{ cuisine.getId }}>{{ cuisine.getName }}</option>
-                        {% endfor %}
-                    </select>
-                </p>
-                <button type='submit'>Add category</button>
+            <form class="form-group form-group-lg form-inline" action='/add_restaurant' method='post'>
+                <div class="form-group form-group-lg">
+                    <label for='restaurant_name'>Restaurant name</label>
+                    <input id='restaurant_name' name='restaurant_name' type='text'>
+                        <div class="form-group form-group-lg">
+                            What Cuisine Type is Featured Here?
+                            <select name="cuisine_id">
+                                {% for cuisine in cuisines %}
+                                    <option value= {{ cuisine.getId }}>{{ cuisine.getName }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="form-group form-group-lg">
+                            <select name="cost">
+                                <option value=1>💲</option>
+                                <option value=2>💲💲</option>
+                                <option value=3>💲💲💲</option>
+                                <option value=4>💲💲💲💲</option>
+                                <option value=5>💲💲💲💲💲</option>
+                            </select>
+                        </div>
+                        <div class="form-group form-group-lg">
+                            <select name="rating">
+                                <option value=1>🌟</option>
+                                <option value=2>🌟🌟</option>
+                                <option value=3>🌟🌟🌟</option>
+                                <option value=4>🌟🌟🌟🌟</option>
+                                <option value=5>🌟🌟🌟🌟🌟</option>
+                            </select>
+                        </div>
+                    <button type='submit'>Add restaurant</button>
+                </div>
             </form>
             <hr />
             <div class="row">
@@ -43,7 +63,37 @@
                     <hr>
                     <ul>
                     {% for cuisine in cuisines %}
-                        <li><a href="/filter_by_cuisine/{{ cuisine.getName }}">{{ cuisine.getName }}</a></li><hr />
+                        <li>
+                        <!-- Button trigger modal -->
+                        <a href='#{{ cuisine.getId }}' data-toggle="modal">✏️  </a>
+                        <a href="/filter_by_cuisine/{{ cuisine.getName }}" class='left-space'>{{ cuisine.getName }}</a>
+                        <!-- Modal -->
+                        <div class="modal fade" id="{{ cuisine.getId }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form class='form-inline' method=>
+                                            <div class='form-group form-horizontal'>
+                                                <input class='form form-control' type='text' placeholder='update cuisine name'>
+                                                <button class='btn btn-warning btn-sm' type='submit'>Submit Changes</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <form action="/edit_cuisine/{{ cuisine.getId }}" method="post">
+                                            <input name="_method" type="hidden" value="delete">
+                                            <button type="submit" class='btn btn-danger btn-sm pull-left'>Delete Cuisine Type</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        </li><hr />
                     {% endfor %}
                     </ul>
                 </div>
@@ -52,7 +102,7 @@
                     <hr>
                     <ul>
                     {% for restaurant in restaurants %}
-                        <li><a href="/filter_by_restaurant/{{ restaurant.getId }}">{{ restaurant.getName }}</a></li><hr />
+                        <li><a href="/edit_restaurant/{{ restaurant.getId }}">{{ restaurant.getName }}</a></li><hr />
                     {% endfor %}
                     </ul>
                 </div>
@@ -82,13 +132,8 @@
                     {% endfor %}
                     </ul>
                 </div>
-
             </div>
 
-
-
-
         </div>
-
     </body>
 </html>
